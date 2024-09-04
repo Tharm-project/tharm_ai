@@ -2,9 +2,9 @@ import vimeo
 
 class Handler:
     def __init__(self):
-        self.vimeo_client = vimeo.VimeoClient(token='', 
-                                         key='', 
-                                         secret='')
+        self.vimeo_client = vimeo.VimeoClient(token='B5D004318199D43D961CCE24315804DB', 
+                                         key='36a09be1adc1d074a9672dfa1b7a0d8945aebc68', 
+                                         secret='Pc7xMrCGoJL68FMUz5A1smVjg2id76G1YXLVFyuhsE3XsHcx/08DZZxPYw60ds0NphC6pi8Rv4vZoIegOaKORBCU3r6nKCWzZttZB9jo19Jos5fQgKOko2uge/qUylls')
 
     def Upload_video(self):
         videoPath = "C:/Users/NEULET/Downloads/1m_video.mp4" # 영상 source 경로
@@ -15,8 +15,22 @@ class Handler:
         self.vimeo_client.patch(uri, data={"name": videoTitle})  # 영상 제목 설정
         
         video_url = f"https://tharm.src.com{uri}"
-        print("Uploaded Video URL: ", video_url)
+        print("영상 업로드 완료. Video URL: ", video_url)
+        
+    def Delete_video(self, target_uri):
+        response = self.vimeo_client.delete(target_uri)
+
+        if response.status_code == 204:
+            print(f"{target_uri} - 영상 삭제 완료")
+        else:
+            print(f"영상 삭제 실패. Status code: {response.status_code}")
+    
+    def GET_Video_info(self, uri):
+        video_info = self.vimeo_client.get(uri) # 업로드 영상 정보 가져오기
+        total_time_sec = video_info.json().get('duration')
+
+        print("영상 길이 : ", total_time_sec)
 
 if __name__ == "__main__":
     controller = Handler()
-    controller.Upload_video()
+    controller.GET_Video_info("https://vimeo.com/1006101658")
