@@ -1,4 +1,0 @@
-path:
-  pose_keypoints: "./sample_data/pose"
-  faceMesh_keypoints: "./sample_data/face"
-  labelPATH: "./sample_data/KETI-2017-SL-Annotation-v2_1.xlsx"
